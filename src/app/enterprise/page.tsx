@@ -393,10 +393,67 @@ function HeroStat({ value, label }: { value: string; label: string }) {
 }
 
 function EcosystemHierarchy() {
-  // Simple tree: Temasek at top → 5 vertical columns → portcos beneath
+  const verticals = [
+    {
+      slug: "technology",
+      name: "Technology & Digital",
+      color: "var(--indigo)",
+      portco_count: 3,
+      warm_contacts: 184,
+    },
+    {
+      slug: "automotive",
+      name: "Automotive",
+      color: "var(--coral)",
+      portco_count: 3,
+      warm_contacts: 126,
+    },
+    {
+      slug: "steel",
+      name: "Steel & Materials",
+      color: "var(--teal)",
+      portco_count: 3,
+      warm_contacts: 93,
+    },
+    {
+      slug: "consumer",
+      name: "Consumer & Retail",
+      color: "var(--copper)",
+      portco_count: 3,
+      warm_contacts: 58,
+    },
+    {
+      slug: "travel",
+      name: "Travel & Hospitality",
+      color: "var(--plum)",
+      portco_count: 2,
+      warm_contacts: 71,
+    },
+  ];
+
+  const companies = [
+    { id: 1, name: "TCS", vertical: "technology", warm_contacts: 42, region: "Mumbai" },
+    { id: 2, name: "Tata Elxsi", vertical: "technology", warm_contacts: 28, region: "Bengaluru" },
+    { id: 3, name: "Tata Communications", vertical: "technology", warm_contacts: 31, region: "Mumbai" },
+
+    { id: 4, name: "Tata Motors", vertical: "automotive", warm_contacts: 35, region: "Pune" },
+    { id: 5, name: "Jaguar Land Rover", vertical: "automotive", warm_contacts: 24, region: "Global" },
+    { id: 6, name: "Tata AutoComp", vertical: "automotive", warm_contacts: 18, region: "Pune" },
+
+    { id: 7, name: "Tata Steel", vertical: "steel", warm_contacts: 29, region: "Jamshedpur" },
+    { id: 8, name: "Tata Metaliks", vertical: "steel", warm_contacts: 17, region: "Kolkata" },
+    { id: 9, name: "Tata Projects", vertical: "steel", warm_contacts: 13, region: "Mumbai" },
+
+    { id: 10, name: "Titan", vertical: "consumer", warm_contacts: 19, region: "Bengaluru" },
+    { id: 11, name: "Trent", vertical: "consumer", warm_contacts: 21, region: "Mumbai" },
+    { id: 12, name: "Tata Consumer", vertical: "consumer", warm_contacts: 15, region: "Mumbai" },
+
+    { id: 13, name: "Air India", vertical: "travel", warm_contacts: 27, region: "Delhi" },
+    { id: 14, name: "IHCL (Taj Hotels)", vertical: "travel", warm_contacts: 22, region: "Mumbai" },
+  ];
+
   return (
     <div className="w-full">
-      {/* Parent node */}
       <div className="flex justify-center mb-8">
         <div
           className="rounded-2xl px-6 py-4 text-center shadow-lg"
@@ -407,24 +464,29 @@ function EcosystemHierarchy() {
           }}
         >
           <div className="font-mono text-[10px] uppercase tracking-widest opacity-80 mb-1">
-            Parent entity · fund admin
+            Parent entity · holding company
           </div>
-          <div className="font-editorial text-xl md:text-2xl tracking-tight" style={{ fontWeight: 700 }}>
-            Temasek
+
+          <div
+            className="font-editorial text-xl md:text-2xl tracking-tight"
+            style={{ fontWeight: 700 }}
+          >
+            Tata Group
           </div>
         </div>
       </div>
-      {/* Connector lines down to verticals */}
+
       <div className="flex justify-center mb-4">
         <div
           className="h-8 w-px border-l-2 border-dashed"
-          style={{ borderColor: `color-mix(in srgb, ${INDIGO} 40%, transparent)` }}
-          aria-hidden
+          style={{
+            borderColor: `color-mix(in srgb, ${INDIGO} 40%, transparent)`,
+          }}
         />
       </div>
-      {/* Vertical columns */}
+
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-8">
-        {fixtureVerticals.map((v) => (
+        {verticals.map((v) => (
           <div
             key={v.slug}
             className="rounded-xl border p-3 text-center"
@@ -437,37 +499,45 @@ function EcosystemHierarchy() {
               className="font-mono text-[9px] uppercase tracking-widest mb-1"
               style={{ color: v.color }}
             >
-              {v.portco_count} portcos
+              {v.portco_count} companies
             </div>
+
             <div
               className="font-editorial text-sm md:text-base tracking-tight mb-2"
               style={{ fontWeight: 700, color: v.color }}
             >
               {v.name}
             </div>
-            <div className="font-mono text-[10px] text-[var(--muted-strong)] tabular-nums">
+
+            <div className="font-mono text-[10px] text-[var(--muted-strong)]">
               {v.warm_contacts} warm
             </div>
           </div>
         ))}
       </div>
-      {/* Connector down to portcos */}
+
       <div className="flex justify-center mb-3">
         <div
           className="h-6 w-px border-l-2 border-dashed"
-          style={{ borderColor: `color-mix(in srgb, ${INDIGO} 40%, transparent)` }}
-          aria-hidden
+          style={{
+            borderColor: `color-mix(in srgb, ${INDIGO} 40%, transparent)`,
+          }}
         />
       </div>
-      {/* Portco dots */}
+
       <div className="rounded-2xl p-4 bg-white border border-[var(--border)]">
         <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted)] mb-3 text-center">
-          14 portfolio companies · each runs its own private graph
+          14 Tata companies · each runs its own private relationship graph
         </div>
+
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2">
-          {fixturePortcos.map((p) => {
-            const vertical = fixtureVerticals.find((v) => v.slug === p.vertical);
+          {companies.map((p) => {
+            const vertical = verticals.find(
+              (v) => v.slug === p.vertical
+            );
+
             const color = vertical?.color || INDIGO;
+
             return (
               <div
                 key={p.id}
@@ -479,11 +549,15 @@ function EcosystemHierarchy() {
               >
                 <div
                   className="font-editorial text-xs md:text-sm tracking-tight truncate"
-                  style={{ fontWeight: 600, color: color }}
+                  style={{
+                    fontWeight: 600,
+                    color,
+                  }}
                 >
                   {p.name}
                 </div>
-                <div className="font-mono text-[9px] text-[var(--muted)] tabular-nums mt-0.5">
+
+                <div className="font-mono text-[9px] text-[var(--muted)] mt-0.5">
                   {p.warm_contacts}w · {p.region}
                 </div>
               </div>
@@ -498,13 +572,13 @@ function EcosystemHierarchy() {
 function TwoGateFlow() {
   const steps = [
     {
-      actor: "Portco B",
+      actor: "PortCo B",
       title: "Asks via Master Connect",
       body: "\u201cWho in the ecosystem knows someone at Stripe?\u201d - queries the directory (metadata only).",
       color: "var(--teal)",
     },
     {
-      actor: "Portco B",
+      actor: "PortCo B",
       title: "Submits intro request",
       body: "Target · purpose · urgency. Request enters Gate 1 queue.",
       color: "var(--teal)",
@@ -516,15 +590,15 @@ function TwoGateFlow() {
       color: INDIGO,
     },
     {
-      actor: "Portco A · Gate 2",
+      actor: "PortCo A · Gate 2",
       title: "Contact ownership decides",
-      body: "Portco A sees the approved request. They approve, deny, or suggest a different contact. Full final say.",
+      body: "PortCo A sees the approved request. They approve, deny, or suggest a different contact. Full final say.",
       color: PLUM,
     },
     {
-      actor: "Portco A's Crew",
-      title: "Intro drafted in Portco A's voice",
-      body: "Messenger Crew drafts the intro, routes to Portco A's Morning Connect for final approval.",
+      actor: "PortCo A's Crew",
+      title: "Intro drafted in PortCo A's voice",
+      body: "Messenger Crew drafts the intro, routes to PortCo A's Threadly for final approval.",
       color: PLUM,
     },
     {
