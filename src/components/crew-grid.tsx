@@ -35,7 +35,7 @@ const tiles: Tile[] = [
     slug: "master-connect",
     number: "00",
     role: "The Chief",
-    name: "Master Connect",
+    name: "Chief",
     color: "var(--plum)",
     headline: "Ask the graph, in plain English.",
     tagline:
@@ -47,7 +47,7 @@ const tiles: Tile[] = [
     slug: "scan",
     number: "01",
     role: "Specialist",
-    name: "Scanner",
+    name: "Snap",
     color: "var(--coral)",
     headline: "Business cards → enriched contacts.",
     tagline:
@@ -59,11 +59,11 @@ const tiles: Tile[] = [
     slug: "signals",
     number: "02",
     role: "Specialist",
-    name: "Messenger",
+    name: "Nudge",
     color: "var(--teal)",
     headline: "Reads every Telegram and WhatsApp inbound.",
     tagline:
-      "Hi. vs Hi! vs Hi!! — three relationships, one word apart. Updates Warmth silently. Drafts replies that match the incoming energy.",
+      "Hi. vs Hi! vs Hi!! - three relationships, one word apart. Updates Warmth silently. Drafts replies that match the incoming energy.",
     href: "/app/signals",
     Icon: Activity,
   },
@@ -71,7 +71,7 @@ const tiles: Tile[] = [
     slug: "inbound",
     number: "03",
     role: "Specialist",
-    name: "Mailbox",
+    name: "Gatekeeper",
     color: "var(--copper)",
     headline: "Cold email, qualified + drafted.",
     tagline:
@@ -83,7 +83,7 @@ const tiles: Tile[] = [
     slug: "social",
     number: "04",
     role: "Specialist",
-    name: "Social Media",
+    name: "Pulse",
     color: "var(--indigo)",
     headline: "Instagram · X · FB Messenger DMs.",
     tagline:
@@ -95,7 +95,7 @@ const tiles: Tile[] = [
     slug: "scribe",
     number: "05",
     role: "Specialist",
-    name: "Scribe",
+    name: "Recall",
     color: "var(--sage)",
     headline: "Voice + meetings → structured memory.",
     tagline:
@@ -124,7 +124,7 @@ export function CrewGrid() {
           </h2>
           <p className="mt-6 text-base md:text-lg text-[var(--muted-strong)] leading-relaxed">
             Each specialist has a narrow job and does it on every relevant
-            input, forever. They write to the same graph. Master Connect sits
+            input, forever. They write to the same graph. Chief sits
             above them and answers questions anyone on the team can ask.
           </p>
         </div>
@@ -159,7 +159,7 @@ function CrewTile({ tile, index }: { tile: Tile; index: number }) {
           : `0 1px 0 rgba(26,24,22,0.03), 0 18px 48px -24px color-mix(in srgb, ${tile.color} 25%, transparent)`,
       }}
     >
-      {/* Corner glow — pulsing */}
+      {/* Corner glow - pulsing */}
       <div
         aria-hidden
         className={`absolute -top-14 -right-14 h-40 w-40 rounded-full blur-3xl opacity-25 pointer-events-none ${pulseClass}`}
@@ -167,7 +167,7 @@ function CrewTile({ tile, index }: { tile: Tile; index: number }) {
       />
 
       <div className="relative flex-1 flex flex-col">
-        {/* Top row: number + role badge + small icon (reverted — no more
+        {/* Top row: number + role badge + small icon (reverted - no more
             embedded illustration, hero-level imagery lives up top) */}
         <div className="flex items-start justify-between mb-5">
           <div className="flex items-center gap-2">

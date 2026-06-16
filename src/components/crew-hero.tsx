@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 // ─── Crew hero ───────────────────────────────────────────────────────────────
 // Five gradient rectangle slots ready for user-provided media (images or
-// videos) — one per Crew member. Each rectangle fades from its Crew signature
+// videos) - one per Crew member. Each rectangle fades from its Crew signature
 // colour into the paper background at the edges, so media sits visually
 // "in" the page rather than on top of it.
 //
@@ -14,14 +14,14 @@ import { cn } from "@/lib/utils";
 //   Aspect:      2:3 portrait
 //   Source size: 720 × 1080 px (3× retina, displays at ~240 × 360)
 //   Max size:    2MB image · 10MB video
-//   Transparent PNG welcome — gradient frame shows through.
+//   Transparent PNG welcome - gradient frame shows through.
 //
 // When ready, flip the MEDIA_FILES record below from `null` to the
 // extension (e.g. `"png"` or `"mp4"`) and the <img>/<video> element will
 // render on top of the gradient slot.
 
 type MediaKind = "image" | "video" | null;
-// All 6 activated Apr 24 — cinematic portraits generated via
+// All 6 activated Apr 24 - cinematic portraits generated via
 // Genspark nano-banana-pro, served from /public/hero/{slug}.png
 const MEDIA_FILES: Record<string, { ext: string; kind: MediaKind }> = {
   "master-connect": { ext: "mp4", kind: "video" },
@@ -43,51 +43,51 @@ type CrewChar = {
 const characters: CrewChar[] = [
   {
     slug: "master-connect",
-    name: "Master Connect",
+    name: "Chief",
     color: "var(--plum)",
-    greeting: "Hi! I'm Master Connect.",
+    greeting: "Hi! I'm Chief.",
     blurb:
-      "I'm the Chief. I read your whole graph and answer questions. \"Who on my team has warm contacts at Sequoia?\" — ranked answers with reasoning, in plain English. I sit above the five specialists.",
+      "I read your entire relationship graph and answer strategic questions. Who on my team has warm contacts at Sequoia? Which path gets me to a founder fastest? I rank the answers, explain my reasoning, and coordinate every other specialist.",
   },
   {
     slug: "scan",
-    name: "Scanner",
+    name: "Snap",
     color: "var(--coral)",
-    greeting: "Hi! I'm Scanner.",
+    greeting: "Hi! I'm Snap.",
     blurb:
-      "I turn business cards and photos into enriched contacts — Claude reads the card, Genspark pulls Crunchbase + press, and you have a filed record before you've left the venue.",
+      "I turn business cards, badges, and contact photos into enriched profiles. Claude reads the card, Genspark gathers company intelligence, and your contact is organized before you've left the event.",
   },
   {
     slug: "signals",
-    name: "Messenger",
+    name: "Nudge",
     color: "var(--teal)",
-    greeting: "Hi! I'm Messenger.",
+    greeting: "Hi! I'm Nudge.",
     blurb:
-      "Set your own secret cues — e.g. drop \"Hi!\" in your opening message to a contact — and I'll fire a richer follow-up draft the next day, staged in Gmail for your approval.",
+      "I make sure promising conversations never go cold. Create custom cues and follow-up rules, and I'll prepare the perfect next message for your approval at exactly the right time.",
   },
   {
     slug: "inbound",
-    name: "Mailbox",
+    name: "Gatekeeper",
     color: "var(--copper)",
-    greeting: "Hi! I'm Mailbox.",
+    greeting: "Hi! I'm Gatekeeper.",
     blurb:
-      "I filter every cold email, qualify it against your criteria, and prepare the draft. You approve in Morning Connect. I never book meetings without you.",
+      "I screen every inbound email, qualify opportunities against your criteria, and prepare responses for review. I protect your attention while keeping you in control of every decision.",
   },
   {
     slug: "social",
-    name: "Social Media",
+    name: "Pulse",
     color: "var(--indigo)",
-    greeting: "Hi! I'm Social Media.",
+    greeting: "Hi! I'm Pulse.",
     blurb:
-      "I watch DMs on Instagram, Facebook Messenger, and X — in real time. Same Signal rules as Telegram. I never cold-DM strangers on your behalf.",
+      "I monitor Instagram, Facebook Messenger, X, Telegram, and other social channels in real time. I detect important conversations, track signals, and make sure nothing valuable slips through.",
   },
   {
     slug: "scribe",
-    name: "Scribe",
+    name: "Recall",
     color: "var(--sage)",
-    greeting: "Hi! I'm Scribe.",
+    greeting: "Hi! I'm Recall.",
     blurb:
-      "I ingest from Plaud, Granola, Otter, or a voice memo you drop in — turn audio into structured memory, extract commitments, and stage them as follow-up drafts.",
+      "I transform meetings, calls, voice notes, and recordings into structured memory. I capture commitments, extract action items, preserve context, and prepare follow-ups so every conversation stays useful forever.",
   },
 ];
 
@@ -123,14 +123,14 @@ export function CrewHero() {
               backgroundClip: "text",
             }}
           >
-            Connect Crew.
+            Threadly Crew.
           </span>
         </h1>
         <p
           className="mt-4 text-xs md:text-sm text-[var(--muted-strong)] leading-relaxed anim-fade-up max-w-xl mx-auto"
           style={{ animationDelay: "0.15s" }}
         >
-          Never lose a connection again — the events you fly to, the emails you
+          Never lose a connection again the events you go to, the emails you
           forget to answer, the WhatsApp chat that trails off, the Telegram
           group you joined and ghosted. Five AI Crew members look after all of
           it in the background.
@@ -160,7 +160,7 @@ export function CrewHero() {
                 floatClass,
               )}
             >
-              {/* 3D flip container — hover flips to back face with blurb */}
+              {/* 3D flip container - hover flips to back face with blurb */}
               <div
                 className="aspect-[2/3] relative [perspective:1200px]"
               >
@@ -168,7 +168,7 @@ export function CrewHero() {
                   className="absolute inset-0 transition-transform duration-700 ease-out group-hover:[transform:rotateY(180deg)]"
                   style={{ transformStyle: "preserve-3d" }}
                 >
-                  {/* FRONT face — portrait media */}
+                  {/* FRONT face - portrait media */}
                   <div
                     className="absolute inset-0 rounded-2xl md:rounded-3xl overflow-hidden"
                     style={{
@@ -228,7 +228,7 @@ export function CrewHero() {
                         boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${c.color} 18%, transparent)`,
                       }}
                     />
-                    {/* Subtle "hover to flip" hint — fades out on hover */}
+                    {/* Subtle "hover to flip" hint - fades out on hover */}
                     <div
                       className="absolute bottom-3 left-0 right-0 text-center font-mono text-[9px] uppercase tracking-widest pointer-events-none transition-opacity duration-300 group-hover:opacity-0"
                       style={{
@@ -241,7 +241,7 @@ export function CrewHero() {
                     </div>
                   </div>
 
-                  {/* BACK face — greeting + blurb on a solid crew-tinted
+                  {/* BACK face - greeting + blurb on a solid crew-tinted
                       card so text reads clearly */}
                   <div
                     className="absolute inset-0 rounded-2xl md:rounded-3xl overflow-hidden p-4 md:p-5 flex flex-col justify-center text-left"

@@ -3,7 +3,7 @@ import { ArrowDown } from "lucide-react";
 // ─── Cue Branching ──────────────────────────────────────────────────────────
 // Three-column visual proof of the Secret Signal thesis.
 //
-// Same inbound phrase, three different punctuations — Hi / Hi! / Hi!! —
+// Same inbound phrase, three different punctuations - Hi / Hi! / Hi!! -
 // classified as cold / warm / hot, branched through the user's rules into
 // three distinctly calibrated reply drafts. Sits on the landing page right
 // after the USP panels as the "show, don't tell" for the hero promise:
@@ -30,7 +30,7 @@ const branches: Branch[] = [
     delta: "+0",
     read: "Polite. Neutral. No punctuation signal.",
     reply:
-      "Great to meet you yesterday — are we able to explore potential collaborations? Here is my deck.",
+      "Great to meet you yesterday - are we able to explore potential collaborations? Here is my deck.",
     color: "var(--warmth-cold)",
     bubbleBg: "color-mix(in srgb, var(--warmth-cold) 10%, white)",
   },
@@ -42,7 +42,7 @@ const branches: Branch[] = [
     delta: "+3",
     read: "One exclamation. Open door. Leaning in.",
     reply:
-      "Great to meet you yesterday! I'd really like a more in-depth discussion on what we talked about — here is my deck so you know more about me.",
+      "Great to meet you yesterday! I'd really like a more in-depth discussion on what we talked about - here is my deck so you know more about me.",
     color: "var(--warmth-warm)",
     bubbleBg: "color-mix(in srgb, var(--warmth-warm) 12%, white)",
   },
@@ -92,7 +92,7 @@ export function CueBranching() {
           is not the same person who wrote{" "}
           <span className="font-mono text-[var(--foreground)]">Hi!!</span>. You
           define the cues that matter, Claude reads every inbound against
-          them, and Messenger drafts the reply that matches.
+          them, and Nudge drafts the reply that matches.
         </p>
       </div>
 
@@ -237,7 +237,7 @@ export function CueBranching() {
 
       <p className="mt-12 text-center font-editorial text-lg md:text-xl tracking-tight text-[var(--muted-strong)] max-w-3xl mx-auto">
         One inbound word. Three completely different relationships. The Crew
-        writes the reply that matches — every time.
+        writes the reply that matches every time.
       </p>
     </section>
   );

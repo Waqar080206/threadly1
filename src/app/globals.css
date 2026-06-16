@@ -18,15 +18,15 @@
   --warmth-neutral: #6a9b8f;
   --warmth-cold: #8a8680;
 
-  /* Editorial accent palette — one per Crew member + supporting tones.
+  /* Editorial accent palette - one per Crew member + supporting tones.
      Canonical Crew (April 23, 2026 final): 5 members. Terracotta kept as an
      accent + Team tier colour; indigo is the Social Media Crew hue. */
-  --coral: #e85a3c;        /* Scanner — heat, speed */
-  --teal: #2d7d7a;         /* Messenger — watchful, quiet */
-  --copper: #c07a2c;       /* Mailbox — gatekeeper */
+  --coral: #e85a3c;        /* Scanner - heat, speed */
+  --teal: #2d7d7a;         /* Messenger - watchful, quiet */
+  --copper: #c07a2c;       /* Mailbox - gatekeeper */
   --terracotta: #c65a4d;   /* accent · Team tier · legacy Warm */
-  --indigo: #3d4e7e;       /* Social Media — platforms */
-  --sage: #7b9a8d;         /* Scribe — the note-taker */
+  --indigo: #3d4e7e;       /* Social Media - platforms */
+  --sage: #7b9a8d;         /* Scribe - the note-taker */
 
   /* Supporting */
   --gold: #b89656;
@@ -326,7 +326,7 @@ a:focus-visible,
   animation: rotate-slow 18s linear infinite;
 }
 
-/* Scroll-triggered reveals — works in all modern browsers via view() timeline,
+/* Scroll-triggered reveals - works in all modern browsers via view() timeline,
    falls back to plain fadeUp where animation-timeline isn't supported. */
 .reveal-on-scroll {
   animation: fadeUp 0.7s var(--ease-out) both;

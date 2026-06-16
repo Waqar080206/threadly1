@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Sparkles, ArrowRight, Send } from "lucide-react";
 import { WarmthBar } from "@/components/warmth-bar";
 
-// ─── Master Connect — landing page section ───────────────────────────────
+// ─── Master Connect - landing page section ───────────────────────────────
 // A static showcase of the Master Connect query experience on the homepage.
 // Shows a sample query + 3 candidate cards to demonstrate what the Chief
 // does without requiring a live Claude call. Sits between CueBranching and
@@ -23,13 +23,13 @@ export function MasterConnectLanding() {
           The Chief · 00
         </div>
         <h2 className="font-editorial text-3xl md:text-5xl leading-[1.05] tracking-tight">
-          Meet <span style={{ color: PLUM }}>Master Connect</span>.
+          Meet <span style={{ color: PLUM }}>Chief</span>.
           <br />
           Ask the graph, in plain English.
         </h2>
         <p className="mt-6 text-base md:text-lg text-[var(--muted-strong)] leading-relaxed max-w-2xl">
           Five specialists keep your graph current. One Chief lets anyone on
-          the team — or across a whole portfolio — ask it anything. Ranked
+          the team - or across a whole portfolio - ask it anything. Ranked
           answers, with reasoning, in under 5 seconds.
         </p>
       </div>
@@ -100,7 +100,7 @@ export function MasterConnectLanding() {
               className="font-mono text-[10px] uppercase tracking-widest mb-3"
               style={{ color: PLUM }}
             >
-              Master Connect · teams · 2,847 ms
+              Chief · teams · 2,847 ms
             </div>
             <p className="font-editorial text-lg md:text-2xl leading-snug tracking-tight text-[var(--ink)]">
               Three candidates across the team. Priya (owned by you, Warmth 86)
@@ -165,7 +165,7 @@ export function MasterConnectLanding() {
               className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
               style={{ backgroundColor: PLUM }}
             >
-              Open Master Connect
+              Open Chief
               <ArrowRight className="h-4 w-4" strokeWidth={2} />
             </Link>
           </div>

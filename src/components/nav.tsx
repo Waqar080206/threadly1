@@ -13,7 +13,7 @@ const navLinks = [
 
 export function Nav() {
   const pathname = usePathname();
-  // Hide the marketing top-nav inside the dashboard — AppSidebar owns nav there.
+  // Hide the marketing top-nav inside the dashboard - AppSidebar owns nav there.
   if (pathname.startsWith("/app")) return null;
 
   return (
@@ -24,7 +24,7 @@ export function Nav() {
           className="flex items-center shrink-0"
           aria-label="Threadly Home"
         >
-          {/* Logo wordmark (color colorway) — source 2219x270, rendered at h=24
+          {/* Logo wordmark (color colorway) - source 2219x270, rendered at h=24
               so it reads at nav height. Next handles responsive scaling. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

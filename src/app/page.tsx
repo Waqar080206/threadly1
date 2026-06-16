@@ -83,26 +83,26 @@ const enterpriseTier = {
 export default function Home() {
   return (
     <main className="flex flex-col paper-grain">
-      {/* Brand loading splash — fades out once fonts + visuals are ready */}
+      {/* Brand loading splash - fades out once fonts + visuals are ready */}
       <HomeLoader />
 
-      {/* Top color rail — five Crew colors with a shimmer sweep */}
+      {/* Top color rail - five Crew colors with a shimmer sweep */}
       <div className="h-1 w-full rail-animated" aria-hidden />
 
-      {/* Live-activity ticker — subtle marquee of what the Crew is doing */}
+      {/* Live-activity ticker - subtle marquee of what the Crew is doing */}
       <div className="marquee border-b border-[var(--hairline)] bg-[var(--paper)]/40 py-2.5 font-mono text-[11px] text-[var(--muted-strong)]">
         <div className="marquee-track">
           {Array.from({ length: 2 }).map((_, dup) => (
             <div key={dup} className="flex items-center gap-10 pr-10">
               {[
-                ["Scanner", "filed Sofia Alencar from Helix Tech", "var(--coral)"],
-                ["Messenger", "warmed Priya +6 after a Hi!!", "var(--teal)"],
-                ["Mailbox", "qualified 3 cold emails overnight", "var(--copper)"],
-                ["Social Media", "captured Kai Jensen DM from Instagram", "var(--indigo)"],
-                ["Scribe", "captured 2 action items from your call", "var(--sage)"],
-                ["Messenger", "detected drift on Wei Lin Chen (−7)", "var(--teal)"],
-                ["Scanner", "read a voice note at 23:14", "var(--coral)"],
-                ["Mailbox", "prepared 83-day check-in for Jamal Idris", "var(--copper)"],
+                ["Snap", "filed Sofia Alencar from Helix Tech", "var(--coral)"],
+                ["Nudge", "warmed Priya +6 after a Hi!!", "var(--teal)"],
+                ["Gatekeeper", "qualified 3 cold emails overnight", "var(--copper)"],
+                ["Pulse", "captured Kai Jensen DM from Instagram", "var(--indigo)"],
+                ["Recall", "captured 2 action items from your call", "var(--sage)"],
+                ["Nudge", "detected drift on Wei Lin Chen (−7)", "var(--teal)"],
+                ["Snap", "read a voice note at 23:14", "var(--coral)"],
+                ["Gatekeeper", "prepared 83-day check-in for Jamal Idris", "var(--copper)"],
               ].map(([crewName, msg, color], i) => (
                 <span key={`${dup}-${i}`} className="flex items-center gap-2 whitespace-nowrap">
                   <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ backgroundColor: color as string }} />
@@ -117,10 +117,10 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ───────── Hero — animated Crew character line-up ───────── */}
+      {/* ───────── Hero - animated Crew character line-up ───────── */}
       <CrewHero />
 
-      {/* Primary CTA — jump straight into the product */}
+      {/* Primary CTA - jump straight into the product */}
       <div className="mx-auto w-full max-w-5xl px-6 pb-16 flex items-center justify-center">
         <Link
           href="/app"
@@ -448,7 +448,7 @@ It builds a living graph of your relationships tracking who you've met, what you
       {/* Bottom color rail mirrors the top */}
       <div className="h-1 w-full rail-animated" aria-hidden />
 
-      {/* Decorative drifting blobs — dynamic background motion */}
+      {/* Decorative drifting blobs - dynamic background motion */}
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div
           className="absolute top-[20%] -left-16 h-72 w-72 rounded-full blur-3xl opacity-[0.08] anim-drift-1"
