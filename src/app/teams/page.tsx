@@ -127,7 +127,7 @@ export default function TeamsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <FeatureTile Icon={Share2} title="One shared graph" body="Every contact, every interaction, visible to every teammate. When Sarah meets someone Monday, Ahmed knows Tuesday." />
             <FeatureTile Icon={AlertTriangle} title="Duplicate-touch alerts" body="If you and a teammate both have pending drafts to the same person, Master Connect surfaces the conflict before either of you hits send." />
-            <FeatureTile Icon={Sparkles} title="Team Master Connect" body={"Ask the graph across the whole team: \u201cWho knows someone at Sequoia?\u201d — ranked answers with owner attribution."} />
+            <FeatureTile Icon={Sparkles} title="Team Chief" body={"Ask the graph across the whole team: \u201cWho knows someone at Sequoia?\u201d - ranked answers with owner attribution."} />
             <FeatureTile Icon={ShieldCheck} title="SSO · SCIM · audit log" body="SAML/OIDC identity provider integration. Per-seat permissions. Full audit trail of every draft, approval, and send." />
           </div>
         </div>
@@ -505,12 +505,12 @@ function SharedGraphDiagram() {
 
 function TimelineFlow() {
   const steps = [
-    { time: "06:00", who: "Claude", event: "Classifies overnight inbound across all 4 teammate channels" },
-    { time: "08:00", who: "Sarah", event: "Arrives, opens Morning Connect — sees her 3 drafts + team context" },
+    { time: "06:00", who: "Threadly", event: "Classifies overnight inbound across all 4 teammate channels" },
+    { time: "08:00", who: "Sarah", event: "Arrives, opens Threadly - sees her 3 drafts + team context" },
     { time: "08:12", who: "Freddy", event: "Approves his 5 Messenger drafts with 'Approve all'" },
     { time: "08:15", who: "System", event: "Flags duplicate-touch: Ahmed + Freddy both on Priya" },
     { time: "08:18", who: "Ahmed", event: "Defers his draft, lets Freddy's go first" },
-    { time: "08:30", who: "All", event: "Team fully caught up — 23 contacts touched, 0 conflicts" },
+    { time: "08:30", who: "All", event: "Team fully caught up - 23 contacts touched, 0 conflicts" },
   ];
   return (
     <div className="relative">
