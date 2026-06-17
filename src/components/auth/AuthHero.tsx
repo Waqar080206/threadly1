@@ -12,9 +12,9 @@ return (
     <section className="flex flex-col justify-center px-8 md:px-16 py-16">
       <div className="max-w-xl">
         <img
-          src="/brand/favicon.png"
+          src="/brand/logocolor.png"
           alt="Threadly"
-          className="h-14 w-14 mb-8"
+          className="h-16 w-68 mb-8"
         />
 
         <h1
