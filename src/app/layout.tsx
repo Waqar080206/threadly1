@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/nav";
+import { AuthProvider } from "@/context/AuthContext";
 
 const display = Bricolage_Grotesque({
   variable: "--font-display",
@@ -37,8 +38,10 @@ export default function RootLayout({
       className={`${display.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <Nav />
-        {children}
+        <AuthProvider>
+          <Nav />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

@@ -98,6 +98,11 @@ a:focus-visible,
   letter-spacing: -0.025em;
 }
 
+/* Gradients for auth background effects */
+.bg-gradient-radial {
+  background-image: radial-gradient(var(--tw-gradient-stops));
+}
+
 .font-mono {
   font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }

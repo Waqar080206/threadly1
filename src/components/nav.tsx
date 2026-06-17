@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 const navLinks = [
   { href: "/#crew", label: "The Crew" },
@@ -51,10 +51,10 @@ export function Nav() {
           ))}
         </div>
         <Link
-          href="/app"
+          href="/auth"
           className="inline-flex items-center gap-1.5 rounded-full bg-[var(--ink)] text-white px-3.5 py-1.5 text-xs font-medium hover:opacity-90 transition-opacity shrink-0"
         >
-          Open Dashboard <ArrowRight className="h-3 w-3" strokeWidth={2.5} />
+          Get Started <ArrowUpRight className="h-3 w-3" strokeWidth={2.5} />
         </Link>
       </div>
     </nav>
