@@ -5,8 +5,9 @@ import SocialAuthButtons from "@/components/auth/SocialAuthButtons";
 import EmailAuthForm from "@/components/auth/EmailAuthForm";
 
 export default function AuthPage() {
-return ( <main className="min-h-screen bg-background relative overflow-hidden">
-
+return ( <main className="min-h-screen paper-grain relative overflow-hidden">
+  {/* Top color rail - five Crew colors with a shimmer sweep */}
+      <div className="h-1 w-full rail-animated" aria-hidden />
 <div
 className="absolute -bottom-40 -left-40 h-96 w-96 rounded-full blur-3xl opacity-[0.06]"
 style={{ backgroundColor: "var(--coral)" }}
@@ -52,6 +53,23 @@ style={{ backgroundColor: "var(--coral)" }}
         </p>
       </div>
     </section>
+  </div>
+  {/* Bottom color rail mirrors the top */}
+      <div className="h-1 w-full rail-animated" aria-hidden />
+  {/* Decorative drifting blobs - dynamic background motion */}
+  <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div
+      className="absolute top-[20%] -left-16 h-72 w-72 rounded-full blur-3xl opacity-[0.08] anim-drift-1"
+      style={{ backgroundColor: "var(--coral)" }}
+    />
+    <div
+      className="absolute top-[60%] -right-20 h-80 w-80 rounded-full blur-3xl opacity-[0.07] anim-drift-2"
+      style={{ backgroundColor: "var(--teal)" }}
+    />
+    <div
+      className="absolute bottom-[10%] left-1/3 h-64 w-64 rounded-full blur-3xl opacity-[0.06] anim-drift-3"
+      style={{ backgroundColor: "var(--copper)" }}
+    />
   </div>
 </main>
 
