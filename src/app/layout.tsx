@@ -3,6 +3,7 @@ import { Bricolage_Grotesque, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/nav";
 import { AuthProvider } from "@/context/AuthContext";
+import { ConditionalLayout } from "@/components/conditional-layout";
 
 const display = Bricolage_Grotesque({
   variable: "--font-display",
@@ -39,8 +40,9 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <AuthProvider>
-          <Nav />
+          <ConditionalLayout>
           {children}
+          </ConditionalLayout>
         </AuthProvider>
       </body>
     </html>
