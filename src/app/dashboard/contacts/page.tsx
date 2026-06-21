@@ -65,7 +65,7 @@ export default function AnalyticsContactsPage() {
   const remaining = fixtureAllActive.length - visibleCount;
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 min-w-0">
+    <div className="w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 min-w-0 paper-grain min-h-screen">
       {/* Header */}
       <header className="mb-10">
         <div className="pt-4 pl-4 font-mono text-[10px] uppercase tracking-widest text-[var(--muted)] mb-3">

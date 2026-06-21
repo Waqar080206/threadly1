@@ -112,7 +112,8 @@ export function DashboardSidebar() {
 <aside
   className={`
     hidden lg:flex flex-col
-    h-screen sticky top-0
+    h-screen max-h-screen
+    sticky top-0
     shrink-0
     overflow-hidden
     bg-[var(--ink)]
@@ -170,11 +171,11 @@ export function DashboardSidebar() {
         )}
       </div>
 
-   <div
-  className={`flex-1 ${
+<div
+  className={`flex-1 min-h-0 ${
     collapsed
       ? "overflow-hidden"
-      : "overflow-y-auto"
+      : "overflow-y-auto threadly-scroll"
   }`}
 >
   {/* View Mode */}
@@ -357,7 +358,8 @@ export function DashboardSidebar() {
     </div>
   )}
 </div>
-<div className="px-3 mt-6 mb-4">
+
+<div className="px-3 my-1">
   <Link
     href="/dashboard/settings"
     className={`
