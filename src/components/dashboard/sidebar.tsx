@@ -35,7 +35,7 @@ const mainItems = [
   },
   {
     label: "Contacts",
-    href: "/contacts",
+    href: "/dashboard/contacts",
     icon: Users,
   },
   {

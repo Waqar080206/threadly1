@@ -50,7 +50,7 @@ const CHANNEL_LABEL: Record<Channel, string> = {
   social: "Social",
 };
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 12;
 
 export default function AnalyticsContactsPage() {
   const s = fixtureAnalyticsSummary;
@@ -65,10 +65,10 @@ export default function AnalyticsContactsPage() {
   const remaining = fixtureAllActive.length - visibleCount;
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 min-w-0">
       {/* Header */}
       <header className="mb-10">
-        <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted)] mb-3">
+        <div className="pt-4 pl-4 font-mono text-[10px] uppercase tracking-widest text-[var(--muted)] mb-3">
           Analytics
         </div>
         <h1
