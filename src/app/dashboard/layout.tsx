@@ -8,6 +8,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
+    <ViewModeProvider>
     <GensparkPanelProvider>
       <div className="flex h-screen overflow-hidden">
         <DashboardSidebar />
@@ -17,5 +18,6 @@ export default function DashboardLayout({
         </main>
       </div>
     </GensparkPanelProvider>
+    </ViewModeProvider>
   );
 }
