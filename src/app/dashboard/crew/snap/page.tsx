@@ -215,7 +215,7 @@ export default function ScanPage() {
   ).length;
 
   return (
-     <div className="pt-4 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 min-w-0 paper-grain min-h-screen">
+  <div className="pt-4 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 min-w-0 paper-grain min-h-screen">
       <Link
         href="/dashboard"
         className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
@@ -585,6 +585,7 @@ export default function ScanPage() {
         </section>
       ) : null}
     </div>
+  </div>
   );
 }
 
