@@ -148,7 +148,7 @@ export default function InboundPage() {
   return (
     <div className="pt-4 w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 min-w-0 paper-grain min-h-screen">
       <Link
-        href="/app/dashboard"
+        href="/dashboard"
         className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
       >
         <ArrowLeft className="h-3 w-3" strokeWidth={1.75} />

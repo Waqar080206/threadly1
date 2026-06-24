@@ -93,7 +93,7 @@ export function ComingSoonShell({
             <ArrowRight className="h-4 w-4" strokeWidth={2} />
           </Link>
           <Link
-            href="/app/dashboard"
+            href="/dashboard"
             className="inline-flex items-center gap-2 text-sm text-[var(--muted-strong)] hover:text-[var(--foreground)] transition-colors"
           >
             See the Dashboard →
