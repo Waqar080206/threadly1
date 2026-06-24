@@ -7,6 +7,8 @@ import {
   useState,
 } from "react";
 
+import { useRouter } from "next/navigation";
+
 export type ViewMode =
   | "personal"
   | "teams"
@@ -27,8 +29,26 @@ export function ViewModeProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [mode, setMode] =
+  const router = useRouter();
+
+  const [mode, setModeState] =
     useState<ViewMode>("personal");
+
+  const setMode = (next: ViewMode) => {
+    setModeState(next);
+
+    if (next === "enterprise") {
+      router.push("/dashboard/enterprise");
+      return;
+    }
+
+    if (next === "teams") {
+      router.push("/dashboard");
+      return;
+    }
+
+    router.push("/dashboard");
+  };
 
   const value = useMemo(
     () => ({

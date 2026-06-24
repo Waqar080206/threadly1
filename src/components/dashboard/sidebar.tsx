@@ -49,22 +49,22 @@ const mainItems = [
 const enterpriseItems = [
   {
     label: "Dashboard",
-    href: "/dashboard",
+    href: "/dashboard/enterprise",
     icon: LayoutDashboard,
   },
   {
     label: "Ecosystem Directory",
-    href: "/dashboard/ecosystem",
+    href: "/dashboard/enterprise#directory",
     icon: Building2,
   },
   {
     label: "Intro Approvals",
-    href: "/dashboard/intro-approvals",
+    href: "/dashboard/enterprise#intro-approvals",
     icon: ShieldCheck,
   },
   {
     label: "PortCos",
-    href: "/dashboard/portcos",
+    href: "/dashboard/enterprise#portcos",
     icon: Briefcase,
   },
 ];
