@@ -221,11 +221,4 @@ Proprietary. All rights reserved.
 
 ---
 
-## 📞 Contact
-
-- **Website:** connectcrew.ai
-- **Status:** Push to Prod - April 24, 2026
-
----
-
 **Made with ❤️ by the Threadly team.**
