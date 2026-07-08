@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from app.database import get_driver
-
+from app.routes.auth import router as auth_router
 app = FastAPI(
     title="Threadly Backend",
     version="0.1.0",
@@ -29,3 +29,9 @@ def neo4j_test():
         return {
             "neo4j": record["message"]
         }
+    
+app.include_router(
+    auth_router,
+    prefix="/auth",
+    tags=["Authentication"],
+)
