@@ -11,12 +11,17 @@ def sync_user(uid, name, email):
             MERGE (u:User {firebaseUid:$uid})
 
             ON CREATE SET
-                u.name=$name,
-                u.email=$email,
-                u.createdAt=datetime()
+        u.name = $name,
+        u.email = $email,
+        u.createdAt = datetime(),
+        u.lastSeen = datetime(),
+        u.onboardingCompleted = false,
+        u.currentMode = "personal"
 
-            ON MATCH SET
-                u.lastSeen=datetime()
+    ON MATCH SET
+        u.name = $name,
+        u.email = $email,
+        u.lastSeen = datetime()
 
             RETURN u
             """,
