@@ -304,5 +304,23 @@ def network_stats(
         )
 
         return result.single().data()    
+def relationship_health(
+    self,
+    user_uid: str,
+):
+    with driver.session() as session:
 
+        result = session.run(
+            """
+            MATCH (u:User {firebaseUid:$uid})-[r:KNOWS]->(p)
+
+            RETURN
+                count(p) AS totalPeople,
+                avg(r.heatScore) AS averageWarmth,
+                min(r.lastContact) AS oldestContact
+            """,
+            uid=user_uid,
+        )
+
+        return result.single().data()
 graph_service = GraphService()

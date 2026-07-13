@@ -4,6 +4,8 @@ from app.routes.auth import router as auth_router
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes.dashboard import router as dashboard_router
 from app.routes.recall import router as recall_router
+from app.routes.nudge import router as nudge_router
+
 app = FastAPI(
     title="Threadly Backend",
     version="0.1.0",
@@ -66,4 +68,9 @@ app.include_router(
     recall_router,
     prefix="/recall",
     tags=["Recall"],
+)
+app.include_router(
+    nudge_router,
+    prefix="/nudge",
+    tags=["Nudge"],
 )
