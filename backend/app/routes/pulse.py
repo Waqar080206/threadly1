@@ -1,16 +1,14 @@
 from fastapi import APIRouter, Depends
 
-from app.auth import verify_user
-from app.services.graph_service import graph_service
+from app.services.pulse_service import pulse_service
+from app.dependencies.auth import get_current_user
 
 router = APIRouter()
 
 
-@router.get("/health")
-def health(
-    current_user=Depends(verify_user),
-):
+@router.get("/dashboard")
+def dashboard(user=Depends(get_current_user)):
 
-    return graph_service.relationship_health(
-        current_user["uid"]
+    return pulse_service.dashboard(
+        user["uid"]
     )

@@ -74,3 +74,10 @@ app.include_router(
     prefix="/nudge",
     tags=["Nudge"],
 )
+from app.routes.pulse import router as pulse_router
+
+app.include_router(
+    pulse_router,
+    prefix="/pulse",
+    tags=["Pulse"],
+)

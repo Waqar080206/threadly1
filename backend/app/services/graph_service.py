@@ -278,10 +278,16 @@ def people_needing_followup(
 
         return [r.data() for r in result]
 
-def network_stats(
-    self,
-    user_uid: str,
-):
+def network_stats(self, uid):
+
+    return {
+        "people": self.total_people(uid),
+        "companies": self.total_companies(uid),
+        "topics": self.total_topics(uid),
+        "founders": self.total_founders(uid),
+        "aiBuilders": self.total_ai_people(uid),
+        "networkHealth": 84
+    }
 
     with driver.session() as session:
 
@@ -323,4 +329,78 @@ def relationship_health(
         )
 
         return result.single().data()
+def total_people(self, uid):
+
+    with driver.session() as session:
+
+        result = session.run(
+            """
+            MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(p)
+
+            RETURN count(p) AS total
+            """,
+            uid=uid,
+        )
+
+        return result.single()["total"]
+def total_companies(self, uid):
+
+    with driver.session() as session:
+
+        result = session.run(
+            """
+            MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(:Person)-[:WORKS_AT]->(c)
+
+            RETURN count(DISTINCT c) AS total
+            """,
+            uid=uid,
+        )
+
+        return result.single()["total"]
+def total_topics(self, uid):
+
+    with driver.session() as session:
+
+        result = session.run(
+            """
+            MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(:Person)-[:HAS_EXPERTISE]->(t)
+
+            RETURN count(DISTINCT t) AS total
+            """,
+            uid=uid,
+        )
+
+        return result.single()["total"]
+def total_founders(self, uid):
+
+    with driver.session() as session:
+
+        result = session.run(
+            """
+            MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(p)
+
+            WHERE toLower(p.role) CONTAINS "founder"
+
+            RETURN count(p) AS total
+            """,
+            uid=uid,
+        )
+
+        return result.single()["total"]
+def total_ai_people(self, uid):
+
+    with driver.session() as session:
+
+        result = session.run(
+            """
+            MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(p)
+
+            MATCH (p)-[:HAS_EXPERTISE]->(:Topic {name:"Artificial Intelligence"})
+
+            RETURN count(DISTINCT p) AS total
+            """,
+            uid=uid,
+        )
+
+        return result.single()["total"]
 graph_service = GraphService()
