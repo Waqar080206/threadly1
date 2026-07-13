@@ -167,9 +167,6 @@ class GraphService:
                 },
             }
 
-
-graph_service = GraphService()
-
 def get_people_by_event(
     self,
     user_uid: str,
@@ -307,3 +304,5 @@ def network_stats(
         )
 
         return result.single().data()    
+
+graph_service = GraphService()
