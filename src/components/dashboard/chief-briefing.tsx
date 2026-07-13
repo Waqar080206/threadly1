@@ -1,6 +1,11 @@
 "use client";
 
+import { useAuth } from "@/context/AuthContext";
+
 export function ChiefBriefing() {
+  const { user } = useAuth();
+  const greetingName = user?.displayName?.split(" ")[0] ?? "there";
+
   return (
     <section className="mb-10 rounded-3xl overflow-hidden border border-[var(--border)] shadow-sm">
       <div
@@ -24,7 +29,7 @@ export function ChiefBriefing() {
             fontWeight: 700,
           }}
         >
-          Good Evening, Waqar.
+          Good Evening, {greetingName}.
         </h1>
 
         <p className="mt-5 max-w-2xl text-[var(--muted-strong)] leading-relaxed text-lg">

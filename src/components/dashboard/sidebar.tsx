@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { useViewMode } from "@/components/view-mode-provider";
+import { logout } from "@/lib/auth";
 
 import {
   LayoutDashboard,
@@ -22,6 +23,7 @@ import {
   Settings,
      TextAlignJustify,
    Briefcase, 
+  LogOut,
 } from "lucide-react";
 
 const mainItems = [
@@ -122,6 +124,7 @@ const modeData = {
 
 export function DashboardSidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { user } = useAuth();
 
   const { mode, setMode } = useViewMode();
@@ -137,6 +140,11 @@ export function DashboardSidebar() {
   mode === "enterprise"
     ? enterpriseItems
     : mainItems;
+
+  async function handleLogout() {
+    await logout();
+    router.push("/auth");
+  }
 
   return (
   <>
@@ -341,6 +349,23 @@ export function DashboardSidebar() {
           <Settings size={18} />
           Settings
         </Link>
+
+        <button
+          type="button"
+          onClick={async () => {
+            setMoreOpen(false);
+            await handleLogout();
+          }}
+          className="
+            mt-2 w-full flex items-center gap-3
+            px-4 py-4
+            rounded-xl
+            hover:bg-white/5
+          "
+        >
+          <LogOut size={18} />
+          Logout
+        </button>
       </div>
     </div>
   </div>
@@ -686,6 +711,22 @@ export function DashboardSidebar() {
             </div>
           )}
         </div>
+
+        <button
+          type="button"
+          onClick={handleLogout}
+          className={`mt-4 flex items-center ${
+            collapsed ? "justify-center" : "gap-3"
+          } w-full rounded-xl px-4 py-3 text-white/75 hover:bg-white/10 hover:text-white transition-all`}
+        >
+          <LogOut size={collapsed ? 18 : 14} />
+
+          {!collapsed && (
+            <span className="text-sm">
+              Logout
+            </span>
+          )}
+        </button>
       </div>
     </aside>
   </>

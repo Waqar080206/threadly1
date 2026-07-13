@@ -9,11 +9,10 @@ import {
 } from "firebase/auth";
 
 import { auth } from "./firebase";
+import { getBackendUrl } from "./api";
 
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
-
-const BACKEND_URL = "http://127.0.0.1:8000";
 
 async function syncUserWithBackend(
   credential: UserCredential
@@ -21,7 +20,7 @@ async function syncUserWithBackend(
   const token = await credential.user.getIdToken();
 
   const response = await fetch(
-    `${BACKEND_URL}/auth/sync`,
+    `${getBackendUrl()}/auth/sync`,
     {
       method: "POST",
       headers: {

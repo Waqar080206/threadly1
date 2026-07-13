@@ -1,4 +1,5 @@
 import { ChiefBriefing } from "@/components/dashboard/chief-briefing";
+import { CrewConsole } from "@/components/dashboard/crew-console";
 import { NetworkStrength } from "@/components/dashboard/network-strength";
 import { Opportunities } from "@/components/dashboard/opportunities";
 import { CrewActivity } from "@/components/dashboard/crew-activity";
@@ -9,6 +10,8 @@ export default function DashboardPage() {
   return (
     <div className="max-w-7xl mx-auto px-8 py-8 paper-grain min-h-screen">
       <ChiefBriefing />
+
+      <CrewConsole />
 
       <NetworkStrength />
 

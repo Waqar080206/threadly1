@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { updateProfile } from "firebase/auth";
 import { useAuth } from "@/context/AuthContext";
+import { auth } from "@/lib/firebase";
 
 const interestsList = [
   "AI",
@@ -78,6 +80,12 @@ export default function OnboardingPage() {
 
   const finish = async () => {
     console.log(form);
+
+    if (auth.currentUser && form.name.trim()) {
+      await updateProfile(auth.currentUser, {
+        displayName: form.name.trim(),
+      });
+    }
 
     // TODO:
     // Send to FastAPI
