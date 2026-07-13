@@ -11,6 +11,10 @@ app = FastAPI(
     title="Threadly Backend",
     version="0.1.0",
 )
+origins = [
+    "http://localhost:3000",
+    "https://threadly1-gules.vercel.app"
+]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS_ORIGINS,
