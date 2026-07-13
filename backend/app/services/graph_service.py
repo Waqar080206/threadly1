@@ -270,7 +270,51 @@ class GraphService:
             )
 
             return [r.data() for r in result]
+    def get_founders(self, uid):
 
+    with driver.session() as session:
+
+        result = session.run(
+            """
+            MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(p)
+
+            WHERE toLower(p.role) CONTAINS "founder"
+
+            RETURN
+                p.name AS name,
+                p.role AS role,
+                p.company AS company
+
+            ORDER BY p.name
+            """,
+            uid=uid,
+        )
+
+        return [record.data() for record in result]
+    
+    def top_companies(self, uid):
+
+    with driver.session() as session:
+
+        result = session.run(
+            """
+            MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(p)
+
+            MATCH (p)-[:WORKS_AT]->(c)
+
+            RETURN
+                c.name AS company,
+                count(*) AS people
+
+            ORDER BY people DESC
+
+            LIMIT 10
+            """,
+            uid=uid,
+        )
+
+        return [record.data() for record in result]
+    
     def people_needing_followup(
         self,
         user_uid: str,
