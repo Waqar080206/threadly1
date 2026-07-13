@@ -3,10 +3,13 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
 export function getBackendUrl() {
-  return (
-    process.env.NEXT_PUBLIC_BACKEND_URL ??
-    "http://127.0.0.1:8000"
-  );
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+  if (!backendUrl) {
+    throw new Error("NEXT_PUBLIC_BACKEND_URL is not set.");
+  }
+
+  return backendUrl;
 }
 
 async function getIdToken(): Promise<string> {

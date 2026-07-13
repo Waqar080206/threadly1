@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from app.database import get_driver
 from app.routes.auth import router as auth_router
 from fastapi.middleware.cors import CORSMiddleware
+from app.config import CORS_ORIGINS
 from app.routes.dashboard import router as dashboard_router
 from app.routes.recall import router as recall_router
 from app.routes.nudge import router as nudge_router
@@ -12,10 +13,7 @@ app = FastAPI(
 )
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
