@@ -222,12 +222,12 @@ function HealthSummary({
 }: {
   stats: Record<string, unknown>;
 }) {
-  const people = stats.people ?? 0;
-  const companies = stats.companies ?? 0;
-  const topics = stats.topics ?? 0;
-  const founders = stats.founders ?? 0;
-  const aiBuilders = stats.aiBuilders ?? 0;
-  const networkHealth = stats.networkHealth ?? 0;
+  const people = String(stats.people ?? 0);
+  const companies = String(stats.companies ?? 0);
+  const topics = String(stats.topics ?? 0);
+  const founders = String(stats.founders ?? 0);
+  const aiBuilders = String(stats.aiBuilders ?? 0);
+  const networkHealth = String(stats.networkHealth ?? 0);
 
   return (
     <div className="space-y-4 text-sm leading-relaxed text-[var(--foreground)]">
