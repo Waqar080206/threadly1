@@ -47,3 +47,12 @@ app.include_router(
     prefix="/auth",
     tags=["Authentication"],
 )
+from app.services.llm_service import llm
+
+from app.routes.scanner import router as scanner_router
+
+app.include_router(
+    scanner_router,
+    prefix="/scanner",
+    tags=["Scanner"],
+)
