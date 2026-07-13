@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from app.database import get_driver
 from app.routes.auth import router as auth_router
 from fastapi.middleware.cors import CORSMiddleware
-
+from app.routes.dashboard import router as dashboard_router
+from app.routes.recall import router as recall_router
 app = FastAPI(
     title="Threadly Backend",
     version="0.1.0",
@@ -55,4 +56,14 @@ app.include_router(
     scanner_router,
     prefix="/scanner",
     tags=["Scanner"],
+)
+app.include_router(
+    dashboard_router,
+    prefix="/dashboard",
+    tags=["Dashboard"],
+)
+app.include_router(
+    recall_router,
+    prefix="/recall",
+    tags=["Recall"],
 )
