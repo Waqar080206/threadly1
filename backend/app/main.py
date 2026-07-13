@@ -81,3 +81,10 @@ app.include_router(
     prefix="/pulse",
     tags=["Pulse"],
 )
+from app.routes.crew import router as crew_router
+
+app.include_router(
+    crew_router,
+    prefix="/crew",
+    tags=["Crew"],
+)
