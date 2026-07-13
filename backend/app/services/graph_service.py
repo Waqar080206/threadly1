@@ -14,11 +14,19 @@ driver = GraphDatabase.driver(
 
 class GraphService:
 
+    def _scanner_person(self, scanner_result):
+        person = getattr(scanner_result, "person", scanner_result)
+        meeting = getattr(scanner_result, "meeting", scanner_result)
+
+        return person, meeting
+
     def find_existing_person(
         self,
         user_uid: str,
         scanner_result,
     ):
+        person, _ = self._scanner_person(scanner_result)
+
         with driver.session() as session:
 
             result = session.run(
@@ -37,8 +45,8 @@ class GraphService:
                 LIMIT 1
                 """,
                 user_uid=user_uid,
-                name=scanner_result.name,
-                email=scanner_result.email,
+                name=getattr(person, "name", None),
+                email=getattr(person, "email", None),
             )
 
             return result.single()
@@ -48,6 +56,17 @@ class GraphService:
         user_uid: str,
         scanner_result,
     ):
+        person, meeting = self._scanner_person(scanner_result)
+
+        name = getattr(person, "name", None)
+        role = getattr(person, "role", None)
+        company = getattr(person, "company", None)
+        email = getattr(person, "email", None)
+        phone = getattr(person, "phone", None)
+        event = getattr(meeting, "event", None)
+        topics = list(getattr(meeting, "topics", []) or [])
+        summary = getattr(meeting, "summary", "")
+        commitments = list(getattr(meeting, "commitments", []) or [])
 
         existing = self.find_existing_person(
             user_uid,
@@ -88,17 +107,17 @@ class GraphService:
                     r.metVia=$event
                 """,
                 user_uid=user_uid,
-                name=scanner_result.name,
-                role=scanner_result.role,
-                company=scanner_result.company,
-                email=scanner_result.email,
-                phone=scanner_result.phone,
-                event=scanner_result.event,
+                name=name,
+                role=role,
+                company=company,
+                email=email,
+                phone=phone,
+                event=event,
             )
 
             # Event
 
-            if scanner_result.event:
+            if event:
 
                 session.run(
                     """
@@ -110,13 +129,13 @@ class GraphService:
 
                     MERGE (p)-[:MET_AT]->(e)
                     """,
-                    name=scanner_result.name,
-                    event=scanner_result.event,
+                    name=name,
+                    event=event,
                 )
 
             # Topics
 
-            for topic in scanner_result.topics:
+            for topic in topics:
 
                 session.run(
                     """
@@ -130,7 +149,7 @@ class GraphService:
                         strength:50
                     }]->(t)
                     """,
-                    name=scanner_result.name,
+                    name=name,
                     topic=topic,
                 )
 
@@ -153,254 +172,302 @@ class GraphService:
                 MERGE (p)-[:HAD]->(i)
                 """,
                 user_uid=user_uid,
-                name=scanner_result.name,
-                summary=scanner_result.summary,
-                commitments=scanner_result.commitments,
+                name=name,
+                summary=summary,
+                commitments=commitments,
             )
 
             return {
                 "created": True,
                 "duplicate": False,
                 "person": {
-                    "name": scanner_result.name,
-                    "company": scanner_result.company,
+                    "name": name,
+                    "company": company,
                 },
             }
 
-def get_people_by_event(
-    self,
-    user_uid: str,
-    event: str,
-):
+    def get_people_by_event(
+        self,
+        user_uid: str,
+        event: str,
+    ):
 
-    with driver.session() as session:
+        with driver.session() as session:
 
-        result = session.run(
-            """
-            MATCH (u:User {firebaseUid:$uid})-[:KNOWS]->(p)
+            result = session.run(
+                """
+                MATCH (u:User {firebaseUid:$uid})-[:KNOWS]->(p)
 
-            MATCH (p)-[:MET_AT]->(e)
+                MATCH (p)-[:MET_AT]->(e)
 
-            WHERE toLower(e.name)
-            CONTAINS toLower($event)
+                WHERE toLower(e.name)
+                CONTAINS toLower($event)
 
-            RETURN
-                p.name AS name,
-                p.role AS role,
-                p.company AS company,
-                e.name AS event
-            """,
-            uid=user_uid,
-            event=event,
-        )
+                RETURN
+                    p.name AS name,
+                    p.role AS role,
+                    p.company AS company,
+                    e.name AS event
+                """,
+                uid=user_uid,
+                event=event,
+            )
 
-        return [r.data() for r in result]
+            return [r.data() for r in result]
 
-def get_people_by_topic(
-    self,
-    user_uid: str,
-    topic: str,
-):
+    def get_people_by_topic(
+        self,
+        user_uid: str,
+        topic: str,
+    ):
 
-    with driver.session() as session:
+        with driver.session() as session:
 
-        result = session.run(
-            """
-            MATCH (u:User {firebaseUid:$uid})-[:KNOWS]->(p)
+            result = session.run(
+                """
+                MATCH (u:User {firebaseUid:$uid})-[:KNOWS]->(p)
 
-            MATCH (p)-[:INTERESTED_IN]->(t)
+                MATCH (p)-[:INTERESTED_IN]->(t)
 
-            WHERE toLower(t.name)
-            CONTAINS toLower($topic)
+                WHERE toLower(t.name)
+                CONTAINS toLower($topic)
 
-            RETURN
-                p.name AS name,
-                p.role AS role,
-                p.company AS company,
-                collect(t.name) AS topics
-            """,
-            uid=user_uid,
-            topic=topic,
-        )
+                RETURN
+                    p.name AS name,
+                    p.role AS role,
+                    p.company AS company,
+                    collect(t.name) AS topics
+                """,
+                uid=user_uid,
+                topic=topic,
+            )
 
-        return [r.data() for r in result]
+            return [r.data() for r in result]
 
-def get_people_by_company(
-    self,
-    user_uid: str,
-    company: str,
-):
+    def get_people_by_company(
+        self,
+        user_uid: str,
+        company: str,
+    ):
 
-    with driver.session() as session:
+        with driver.session() as session:
 
-        result = session.run(
-            """
-            MATCH (u:User {firebaseUid:$uid})-[:KNOWS]->(p)
+            result = session.run(
+                """
+                MATCH (u:User {firebaseUid:$uid})-[:KNOWS]->(p)
 
-            WHERE
-                toLower(p.company)
-                CONTAINS toLower($company)
+                WHERE
+                    toLower(p.company)
+                    CONTAINS toLower($company)
 
-            RETURN
-                p.name AS name,
-                p.role AS role,
-                p.company AS company
-            """,
-            uid=user_uid,
-            company=company,
-        )
+                RETURN
+                    p.name AS name,
+                    p.role AS role,
+                    p.company AS company
+                """,
+                uid=user_uid,
+                company=company,
+            )
 
-        return [r.data() for r in result]
+            return [r.data() for r in result]
 
-def people_needing_followup(
-    self,
-    user_uid: str,
-):
+    def people_needing_followup(
+        self,
+        user_uid: str,
+    ):
 
-    with driver.session() as session:
+        with driver.session() as session:
 
-        result = session.run(
-            """
-            MATCH (u:User {firebaseUid:$uid})
+            result = session.run(
+                """
+                MATCH (u:User {firebaseUid:$uid})
 
-            MATCH (u)-[r:KNOWS]->(p)
+                MATCH (u)-[r:KNOWS]->(p)
 
-            RETURN
-                p.name AS name,
-                p.company AS company,
-                r.lastContact AS lastContact,
-                r.heatScore AS heatScore
-            ORDER BY r.lastContact ASC
-            LIMIT 10
-            """,
-            uid=user_uid,
-        )
+                RETURN
+                    p.name AS name,
+                    p.company AS company,
+                    r.lastContact AS lastContact,
+                    r.heatScore AS heatScore
+                ORDER BY r.lastContact ASC
+                LIMIT 10
+                """,
+                uid=user_uid,
+            )
 
-        return [r.data() for r in result]
+            return [r.data() for r in result]
 
-def network_stats(self, uid):
+    def network_stats(self, uid):
 
-    return {
-        "people": self.total_people(uid),
-        "companies": self.total_companies(uid),
-        "topics": self.total_topics(uid),
-        "founders": self.total_founders(uid),
-        "aiBuilders": self.total_ai_people(uid),
-        "networkHealth": 84
-    }
+        with driver.session() as session:
 
-    with driver.session() as session:
+            result = session.run(
+                """
+                MATCH (u:User {firebaseUid:$uid})
 
-        result = session.run(
-            """
-            MATCH (u:User {firebaseUid:$uid})
+                OPTIONAL MATCH (u)-[:KNOWS]->(p)
 
-            OPTIONAL MATCH (u)-[:KNOWS]->(p)
+                OPTIONAL MATCH (p)-[:MET_AT]->(e)
 
-            OPTIONAL MATCH (p)-[:MET_AT]->(e)
+                OPTIONAL MATCH (p)-[:INTERESTED_IN]->(t)
 
-            OPTIONAL MATCH (p)-[:INTERESTED_IN]->(t)
+                RETURN
+                    count(DISTINCT p) AS people,
+                    count(DISTINCT e) AS events,
+                    count(DISTINCT t) AS topics
+                """,
+                uid=uid,
+            )
 
-            RETURN
-                count(DISTINCT p) AS people,
-                count(DISTINCT e) AS events,
-                count(DISTINCT t) AS topics
-            """,
-            uid=user_uid,
-        )
+            stats = result.single().data()
 
-        return result.single().data()    
-def relationship_health(
-    self,
-    user_uid: str,
-):
-    with driver.session() as session:
+        stats["companies"] = self.total_companies(uid)
+        stats["founders"] = self.total_founders(uid)
+        stats["aiBuilders"] = self.total_ai_people(uid)
+        stats["networkHealth"] = 84
 
-        result = session.run(
-            """
-            MATCH (u:User {firebaseUid:$uid})-[r:KNOWS]->(p)
+        return stats
 
-            RETURN
-                count(p) AS totalPeople,
-                avg(r.heatScore) AS averageWarmth,
-                min(r.lastContact) AS oldestContact
-            """,
-            uid=user_uid,
-        )
+    def relationship_health(
+        self,
+        user_uid: str,
+    ):
+        with driver.session() as session:
 
-        return result.single().data()
-def total_people(self, uid):
+            result = session.run(
+                """
+                MATCH (u:User {firebaseUid:$uid})-[r:KNOWS]->(p)
 
-    with driver.session() as session:
+                RETURN
+                    count(p) AS totalPeople,
+                    avg(r.heatScore) AS averageWarmth,
+                    min(r.lastContact) AS oldestContact
+                """,
+                uid=user_uid,
+            )
 
-        result = session.run(
-            """
-            MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(p)
+            return result.single().data()
 
-            RETURN count(p) AS total
-            """,
-            uid=uid,
-        )
+    def total_people(self, uid):
 
-        return result.single()["total"]
-def total_companies(self, uid):
+        with driver.session() as session:
 
-    with driver.session() as session:
+            result = session.run(
+                """
+                MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(p)
 
-        result = session.run(
-            """
-            MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(:Person)-[:WORKS_AT]->(c)
+                RETURN count(p) AS total
+                """,
+                uid=uid,
+            )
 
-            RETURN count(DISTINCT c) AS total
-            """,
-            uid=uid,
-        )
+            return result.single()["total"]
 
-        return result.single()["total"]
-def total_topics(self, uid):
+    def total_companies(self, uid):
 
-    with driver.session() as session:
+        with driver.session() as session:
 
-        result = session.run(
-            """
-            MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(:Person)-[:HAS_EXPERTISE]->(t)
+            result = session.run(
+                """
+                MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(:Person)-[:WORKS_AT]->(c)
 
-            RETURN count(DISTINCT t) AS total
-            """,
-            uid=uid,
-        )
+                RETURN count(DISTINCT c) AS total
+                """,
+                uid=uid,
+            )
 
-        return result.single()["total"]
-def total_founders(self, uid):
+            return result.single()["total"]
 
-    with driver.session() as session:
+    def total_topics(self, uid):
 
-        result = session.run(
-            """
-            MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(p)
+        with driver.session() as session:
 
-            WHERE toLower(p.role) CONTAINS "founder"
+            result = session.run(
+                """
+                MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(:Person)-[:HAS_EXPERTISE]->(t)
 
-            RETURN count(p) AS total
-            """,
-            uid=uid,
-        )
+                RETURN count(DISTINCT t) AS total
+                """,
+                uid=uid,
+            )
 
-        return result.single()["total"]
-def total_ai_people(self, uid):
+            return result.single()["total"]
 
-    with driver.session() as session:
+    def total_founders(self, uid):
 
-        result = session.run(
-            """
-            MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(p)
+        with driver.session() as session:
 
-            MATCH (p)-[:HAS_EXPERTISE]->(:Topic {name:"Artificial Intelligence"})
+            result = session.run(
+                """
+                MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(p)
 
-            RETURN count(DISTINCT p) AS total
-            """,
-            uid=uid,
-        )
+                WHERE toLower(coalesce(p.role, "")) CONTAINS "founder"
 
-        return result.single()["total"]
+                RETURN count(p) AS total
+                """,
+                uid=uid,
+            )
+
+            return result.single()["total"]
+
+    def total_ai_people(self, uid):
+
+        with driver.session() as session:
+
+            result = session.run(
+                """
+                MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(p)
+
+                MATCH (p)-[:HAS_EXPERTISE]->(:Topic {name:"Artificial Intelligence"})
+
+                RETURN count(DISTINCT p) AS total
+                """,
+                uid=uid,
+            )
+
+            return result.single()["total"]
+
+    def get_founders(self, uid):
+
+        with driver.session() as session:
+
+            result = session.run(
+                """
+                MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(p)
+
+                WHERE toLower(coalesce(p.role, "")) CONTAINS "founder"
+
+                RETURN
+                    p.name AS name,
+                    p.role AS role,
+                    p.company AS company
+                ORDER BY p.company, p.name
+                """,
+                uid=uid,
+            )
+
+            return [r.data() for r in result]
+
+    def top_companies(self, uid):
+
+        with driver.session() as session:
+
+            result = session.run(
+                """
+                MATCH (:User {firebaseUid:$uid})-[:KNOWS]->(p)
+
+                WHERE p.company IS NOT NULL AND p.company <> ""
+
+                RETURN
+                    p.company AS company,
+                    count(DISTINCT p) AS people
+                ORDER BY people DESC, company ASC
+                LIMIT 10
+                """,
+                uid=uid,
+            )
+
+            return [r.data() for r in result]
+
+
 graph_service = GraphService()
